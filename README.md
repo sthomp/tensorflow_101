@@ -10,6 +10,12 @@ brew install docker-machine
 brew install docker
 ```
 
+Create a docker machine:
+
+```
+docker-machine create --driver virtualbox --virtualbox-memory 4096 --virtualbox-cpu 4 default
+```
+
 Run a docker machine:
 
 ```
