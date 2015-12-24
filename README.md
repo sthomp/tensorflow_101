@@ -79,7 +79,11 @@ curl -o /tensorflow/tensorflow/examples/label_image/data/inception_dec_2015.zip 
 
 unzip /tensorflow/tensorflow/examples/label_image/data/inception_dec_2015.zip -d /tensorflow/tensorflow/examples/label_image/data/
 
-cd /tensorflow/tensorflow/examples/label_image && bazel build .
+cd /tensorflow && bazel build tensorflow/examples/label_image
+
+cd /tensorflow && bazel-bin/tensorflow/examples/label_image/label_image
+
+cd /tensorflow && bazel-bin/tensorflow/examples/label_image/label_image --image=/tensorflow_dev/IMG_20151214_132804.jpg
 ```
 
 
