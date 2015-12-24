@@ -13,7 +13,7 @@ brew install docker
 Create a docker machine:
 
 ```
-docker-machine create --driver virtualbox --virtualbox-memory 4096 --virtualbox-cpu 4 default
+docker-machine create --driver virtualbox --virtualbox-memory 8192 --virtualbox-cpu-count 4 default
 ```
 
 Run a docker machine:
@@ -48,3 +48,38 @@ docker attach tensorflow
 
 docker rm -v tensorflow
 ```
+
+## Image Recognition via Docker
+
+Run default image recognition one off
+
+```bash
+docker run --name tensorflow --rm -v /Users/scott/Code/web/tensorflow_dev:/tensorflow_dev b.gcr.io/tensorflow/tensorflow:latest-devel /bin/sh -c 'python /tensorflow/tensorflow/models/image/imagenet/classify_image.py'
+```
+
+Run image recognition on your own image one off
+
+```bash
+docker run --name tensorflow --rm -v /Users/scott/Code/web/tensorflow_dev:/tensorflow_dev b.gcr.io/tensorflow/tensorflow:latest-devel /bin/sh -c 'python /tensorflow/tensorflow/models/image/imagenet/classify_image.py --image_file /tensorflow_dev/IMG_20151213_171152.jpg'
+```
+
+Image Recognition Interactive
+
+```bash
+docker run -it --name tensorflow -p 6006:6006 --rm -v /Users/scott/Code/web/tensorflow_dev:/tensorflow_dev b.gcr.io/tensorflow/tensorflow:latest-devel
+python /tensorflow/tensorflow/models/image/imagenet/classify_image.py --image_file /tensorflow_dev/IMG_20151213_171152.jpg
+```
+
+C++ setup
+
+```bash
+docker run -it --name tensorflow -p 6006:6006 --rm -v /Users/scott/Code/web/tensorflow_dev:/tensorflow_dev b.gcr.io/tensorflow/tensorflow:latest-devel
+
+curl -o /tensorflow/tensorflow/examples/label_image/data/inception_dec_2015.zip https://storage.googleapis.com/download.tensorflow.org/models/inception_dec_2015.zip
+
+unzip /tensorflow/tensorflow/examples/label_image/data/inception_dec_2015.zip -d /tensorflow/tensorflow/examples/label_image/data/
+
+cd /tensorflow/tensorflow/examples/label_image && bazel build .
+```
+
+
